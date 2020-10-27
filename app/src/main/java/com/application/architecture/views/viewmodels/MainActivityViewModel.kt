@@ -18,9 +18,6 @@ import java.net.UnknownHostException
 
 internal class MainActivityViewModel : BaseViewModel() {
 
-
-
-
     private val _notificationMessage = MutableLiveData<NotificationMessage>()
 
     val notificationMessage: LiveData<NotificationMessage>
