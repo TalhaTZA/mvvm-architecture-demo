@@ -9,7 +9,7 @@ import com.google.gson.Gson
 import java.io.File
 import java.util.*
 
-internal class TinyDB private constructor() {
+class TinyDB private constructor() {
 
     private val preferences by lazy {
         PreferenceManager.getDefaultSharedPreferences(ApplicationClass.application.applicationContext)

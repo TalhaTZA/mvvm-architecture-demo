@@ -11,7 +11,7 @@ import com.application.architecture.R
 import com.application.architecture.databinding.NotificationDialogBinding
 
 
-internal object DisplayNotification {
+object DisplayNotification {
 
 
     private const val NOTIFICATION_TIMER = 1000L

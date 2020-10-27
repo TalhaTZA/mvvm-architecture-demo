@@ -15,7 +15,7 @@ import java.lang.Exception
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException
 
-internal open class BaseViewModel : ViewModel() {
+open class BaseViewModel : ViewModel() {
 
     protected val tinyDB by lazy { TinyDB.instance }
 

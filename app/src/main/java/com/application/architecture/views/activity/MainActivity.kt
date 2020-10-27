@@ -12,9 +12,10 @@ import com.application.architecture.R
 import com.application.architecture.databinding.ActivityMainBinding
 import com.application.architecture.views.fragments.LoaderFragment
 import com.application.architecture.views.utils.DisplayNotification
+import com.application.architecture.views.viewmodels.BaseViewModel
 import com.application.architecture.views.viewmodels.MainActivityViewModel
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
 
     private lateinit var mBinding: ActivityMainBinding
@@ -32,11 +33,42 @@ class MainActivity : AppCompatActivity() {
 
         init()
 
-        observe()
 
     }
 
+
+    private fun init() {
+
+        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
+
+        initNavController()
+
+        observe()
+    }
+
+    private fun initNavController() {
+        mNavController = findNavController(R.id.nav_host_fragment)
+
+        mNavController.apply {
+
+            addOnDestinationChangedListener { controller, destination, arguments ->
+                mNavDestination = destination
+
+            }
+
+        }
+
+    }
+
+    override fun getActivityLayout() = R.layout.activity_main
+
+    override fun getViewBinding() {
+        mBinding = binding as ActivityMainBinding
+    }
+
     private fun observe() {
+
+
         mViewModel.apply {
             loader.observe(this@MainActivity, Observer {
                 it ?: return@Observer
@@ -61,6 +93,7 @@ class MainActivity : AppCompatActivity() {
 
             })
 
+
             notificationMessage.observe(this@MainActivity, Observer {
 
                 it ?: return@Observer
@@ -82,27 +115,4 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun init() {
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main)
-
-        mViewModel = ViewModelProviders.of(this).get(MainActivityViewModel::class.java)
-
-
-        initNavController()
-
-
-    }
-
-    private fun initNavController() {
-        mNavController = findNavController(R.id.nav_host_fragment)
-
-        mNavController.apply {
-
-            addOnDestinationChangedListener { controller, destination, arguments ->
-                mNavDestination = destination
-
-            }
-
-        }
-    }
 }
