@@ -5,7 +5,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
-internal data class ResponseGeneral<T>(
+data class ResponseGeneral<T>(
     @Json(name = "message")
     val message: List<String> = arrayListOf(),
     @Json(name = "status")

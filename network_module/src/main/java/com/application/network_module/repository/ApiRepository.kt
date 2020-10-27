@@ -6,17 +6,17 @@ import com.application.network_module.utils.Enums
 import retrofit2.Response
 import java.lang.Exception
 
-internal object ApiRepository {
+object ApiRepository {
 
     private val api = RetrofitBuilder.getRetrofitInstance(Enums.RetrofitBaseUrl.BASE_URL)
 
-//    suspend fun callApi(): Result<Response<ResponseGeneral<Any>>> {
-//
-//        return try {
-//            Success(api.callApi())
-//        } catch (e: Exception) {
-//            Error(e)
-//        }
-//    }
+    suspend fun callApi(): Result<Response<ResponseGeneral<Any>>> {
+
+        return try {
+            Success(api.getTodos())
+        } catch (e: Exception) {
+            Error(e)
+        }
+    }
 
 }

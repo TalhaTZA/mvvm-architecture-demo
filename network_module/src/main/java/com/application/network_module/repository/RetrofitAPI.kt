@@ -1,6 +1,7 @@
 package com.application.network_module.repository
 
 
+import com.application.network_module.models.response.ResponseGeneral
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -16,6 +17,9 @@ internal interface RetrofitAPI {
 
 
     /*GET REQUEST*/
+
+    @GET("todos")
+    suspend fun getTodos(): Response<ResponseGeneral<Any>>
 
 
     /*PUT REQUEST*/
