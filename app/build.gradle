@@ -36,6 +36,24 @@ android {
         jvmTarget = "1.8"
     }
 
+    flavorDimensions "server"
+
+    productFlavors {
+        dev {
+            dimension "server"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-Dev"
+        }
+        stage {
+            dimension "server"
+            applicationIdSuffix ".stage"
+            versionNameSuffix "-Stage"
+        }
+        live {
+            dimension "server"
+        }
+    }
+
 
 
 
