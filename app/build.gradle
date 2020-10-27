@@ -55,8 +55,6 @@ android {
     }
 
 
-
-
 }
 
 dependencies {
@@ -90,6 +88,9 @@ dependencies {
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$version_navigation"
     implementation "androidx.navigation:navigation-ui-ktx:$version_navigation"
+
+    //retrofit
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
 
     //OK HTTP
     implementation "com.squareup.okhttp3:okhttp:$version_ok_http"
