@@ -4,6 +4,7 @@ import android.app.Application
 import android.content.Context
 import com.application.architecture.views.models.language.LanguageJson
 import com.application.architecture.views.utils.loadJSONFromAssets
+import com.application.network_module.NetworkModule
 import com.google.gson.Gson
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,6 +21,7 @@ internal class ApplicationClass : Application() {
 
         setUpLanguageJson()
 
+        NetworkModule.initialize(this.applicationContext)
 
     }
 
@@ -29,7 +31,6 @@ internal class ApplicationClass : Application() {
                 Gson().fromJson(loadJSONFromAssets("AppAndroidEn.json"), LanguageJson::class.java)
         }
     }
-
 
 
     companion object {
