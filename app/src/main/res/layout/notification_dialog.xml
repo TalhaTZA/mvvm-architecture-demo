@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view_notification"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_gravity="center_horizontal"
+        app:cardBackgroundColor="@android:color/black"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="10dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="20dp">
+
+            <ImageView
+                android:id="@+id/img_view_notification_icon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                app:srcCompat="@drawable/icon_check_white_24dp" />
+
+            <TextView
+                android:id="@+id/txt_view_notification_message"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="@dimen/default_16_dp"
+                android:layout_toEndOf="@+id/img_view_notification_icon"
+                android:ellipsize="end"
+                android:gravity="center_vertical"
+                android:maxLines="5"
+                android:text="TESTING"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+</layout>
+

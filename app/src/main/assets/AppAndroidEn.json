@@ -1,4 +1,10 @@
 {
+  "messages": {
+    "error_messages": {
+      "internet": "Check your internet and Try again.",
+      "internal": "Some Internal Error Has Occurred"
+    }
+  },
   "global": {
     "string_app_name": "App Name"
   }
