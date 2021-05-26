@@ -7,6 +7,7 @@ import android.view.WindowManager
 import androidx.lifecycle.ViewModelProviders
 import com.application.architecture.R
 import com.application.architecture.databinding.FragmentLoaderBinding
+import com.application.architecture.views.dialogs.BaseDialogFragment
 import com.application.architecture.views.viewmodels.MainActivityViewModel
 
 

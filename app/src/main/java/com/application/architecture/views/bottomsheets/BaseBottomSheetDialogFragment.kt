@@ -1,4 +1,4 @@
-package com.application.architecture.views.fragments
+package com.application.architecture.views.bottomsheets
 
 import android.os.Bundle
 import android.view.LayoutInflater
