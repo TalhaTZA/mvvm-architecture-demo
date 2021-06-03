@@ -2,14 +2,19 @@ package com.application.network_module.repository
 
 import android.content.Context
 import android.util.Log
+import android.widget.Toast
 import com.application.network_module.NetworkModule
 import com.application.network_module.utils.Enums
 import com.application.network_module.utils.TinyDB
 import com.application.newtork_module.utils.Constants
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
+import com.readystatesoftware.chuck.BuildConfig
 import com.readystatesoftware.chuck.ChuckInterceptor
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -63,25 +68,29 @@ internal object RetrofitBuilder {
         return baseUrl == Enums.RetrofitBaseUrl.BASE_URL.baseUrl
     }
 
-    private fun getOkHttpClient(context: Context, isBescure: Boolean): OkHttpClient {
+    private fun getOkHttpClient(context: Context, isHostUrl: Boolean): OkHttpClient {
         val interceptor = HttpLoggingInterceptor().apply {
             level = Constants.LOG_LEVEL_API
         }
 
         val builder = OkHttpClient.Builder()
-            .addInterceptor(interceptor)
+
             .addInterceptor(ChuckInterceptor(context))
             .connectTimeout(Constants.API_CONNECT_TIMEOUT, TimeUnit.SECONDS)
             .readTimeout(Constants.API_READ_TIMEOUT, TimeUnit.SECONDS)
             .writeTimeout(Constants.API_WRITE_TIMEOUT, TimeUnit.SECONDS)
 
-        if (isBescure)
-            builder.addNetworkInterceptor(NetworkInterceptorBSecure(context))
+        if (isHostUrl)
+            builder.addNetworkInterceptor(CustomNetworkInterceptor(context))
+
+        if (BuildConfig.DEBUG) {
+            builder.addInterceptor(interceptor)
+        }
 
         return builder.build()
     }
 
-    private class NetworkInterceptorBSecure(private val context: Context) : Interceptor {
+    private class CustomNetworkInterceptor(private val context: Context) : Interceptor {
         override fun intercept(chain: Interceptor.Chain): Response {
 
             val original = chain.request()
@@ -98,7 +107,10 @@ internal object RetrofitBuilder {
 
             val headerTag = original.header(RetrofitAPI.HEADER_TAG)
 
-            Log.e("Layer", "Network Layer [ACCESS Token: $token \nUrl: ${original.url}]")
+            if (BuildConfig.DEBUG) {
+                Log.e("Layer", "Network Layer [ACCESS Token: $token \nUrl: ${original.url}]")
+
+            }
 
             val builder = original.newBuilder()
 
@@ -148,6 +160,16 @@ internal object RetrofitBuilder {
 //                )
 
 //                EventBus.getDefault().post(response)
+            }
+
+            if (BuildConfig.DEBUG) {
+                CoroutineScope(Dispatchers.Main).launch {
+                    Toast.makeText(
+                        NetworkModule.context,
+                        "${(response.receivedResponseAtMillis - response.sentRequestAtMillis)} Milliseconds",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
             }
 
             return response
