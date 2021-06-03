@@ -12,6 +12,7 @@ import com.application.architecture.R
 import com.application.architecture.databinding.ActivityMainBinding
 import com.application.architecture.views.fragments.LoaderFragment
 import com.application.architecture.views.utils.DisplayNotification
+import com.application.architecture.views.utils.Enums
 import com.application.architecture.views.viewmodels.BaseViewModel
 import com.application.architecture.views.viewmodels.MainActivityViewModel
 
@@ -119,13 +120,27 @@ class MainActivity : BaseActivity() {
 
                         model ->
 
-                    mNavController.currentDestination?.getAction(model.id)?.let {
-                        mNavController.navigate(
-                            model.id,
-                            model.bundle,
-                            null,
-                            model.fragNavigatorExtras
-                        )
+                    when (model.navigationType) {
+
+                        Enums.NavigationType.ACTION -> {
+                            mNavController.currentDestination?.getAction(model.id)?.let {
+                                mNavController.navigate(
+                                    model.id,
+                                    model.bundle,
+                                    null,
+                                    model.fragNavigatorExtras
+                                )
+                            }
+                        }
+
+                        Enums.NavigationType.ID -> {
+                            mNavController.navigate(
+                                model.id,
+                                model.bundle,
+                                null,
+                                model.fragNavigatorExtras
+                            )
+                        }
                     }
                 }
 
