@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.application.network_module.repository
 
 
@@ -12,11 +14,16 @@ object ApiRepository {
 
     suspend fun callApi(): Result<Response<ResponseGeneral<Any>>> {
 
+        return callApi{
+            api.getTodos()
+        } as Result<Response<ResponseGeneral<Any>>>
+    }
+
+    private suspend fun <T> callApi(api: suspend () -> Response<T>): Result<Any> {
         return try {
-            Success(api.getTodos())
+            Success(api.invoke())
         } catch (e: Exception) {
             Error(e)
         }
     }
-
 }
