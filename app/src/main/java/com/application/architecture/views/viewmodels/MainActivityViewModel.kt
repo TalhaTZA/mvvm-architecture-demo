@@ -56,5 +56,9 @@ internal class MainActivityViewModel : BaseViewModel() {
         super.toggleLoader(flag)
     }
 
+    fun <T> clearLiveDataValue(liveData: LiveData<T>) {
+        (liveData as MutableLiveData).value = null
+    }
+
 
 }

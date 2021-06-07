@@ -2,7 +2,9 @@ package com.application.architecture.views.utils
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.location.LocationManager
+import android.view.View
 import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import android.widget.Toast
@@ -11,6 +13,7 @@ import androidx.core.location.LocationManagerCompat
 import androidx.fragment.app.FragmentActivity
 import com.application.architecture.R
 //import coil.api.load
+import com.bumptech.glide.load.Transformation
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import kotlinx.coroutines.Dispatchers
@@ -73,10 +76,11 @@ fun getKeyboardHeight(imm: InputMethodManager): Int =
     InputMethodManager::class.java.getMethod("getInputMethodWindowVisibleHeight").invoke(imm) as Int
 
 
-fun Context.loadImage(url: String?, imageView: ImageView) {
+fun Context.loadImage(url: String?, imageView: ImageView,vararg transform: Transformation<Bitmap>) {
     url?.also {
         Glide.with(imageView.context)
             .load(url)
+            .transform(*transform)
             .apply(
                 RequestOptions()
                     .placeholder(R.drawable.loading_animation)
@@ -112,3 +116,15 @@ fun Context.isGpsEnabled() =
     (getSystemService(Context.LOCATION_SERVICE) as LocationManager).isProviderEnabled(
         LocationManager.GPS_PROVIDER
     )
+
+fun View.show() {
+    visibility = View.VISIBLE
+}
+
+fun View.hide() {
+    visibility = View.INVISIBLE
+}
+
+fun View.gone() {
+    visibility = View.GONE
+}
